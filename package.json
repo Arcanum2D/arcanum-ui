@@ -27,7 +27,8 @@
     "dev": "vite",
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
-    "demo:screenshot": "node scripts/screenshot-demo.mjs"
+    "demo:screenshot": "node scripts/screenshot-demo.mjs",
+    "prepare": "tsc -p tsconfig.build.json"
   },
   "devDependencies": {
     "typescript": "^5.9.3",
@@ -40,5 +41,13 @@
     "pixel-art",
     "game-ui",
     "retro"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arcanum2D/arcanum-ui.git"
+  },
+  "homepage": "https://github.com/Arcanum2D/arcanum-ui#readme",
+  "bugs": {
+    "url": "https://github.com/Arcanum2D/arcanum-ui/issues"
+  }
 }

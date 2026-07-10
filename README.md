@@ -4,10 +4,20 @@ Pixel-art RPG UI library — CSS-first, zero dependencies. Dark navy & cyan them
 
 Born inside [Arcanum 2D RPG](https://play.arcanum2d.com); inspired by the *usage model* of [RPGUI](https://github.com/RonenNess/RPGUI) (just CSS classes, no required JS) but rebuilt with modern CSS: cascade layers, custom properties, native form controls — no images, no DOM replacement, ~40 KB of fonts instead of 1.35 MB of sprites.
 
+![arcanum-ui kitchen-sink demo](docs/demo-jersey.png)
+
 ## Install & use
 
+Not on npm yet. Two ways to consume it today:
+
 ```bash
-bun add arcanum-ui   # or: "arcanum-ui": "file:../arcanum-ui"
+# as a git dependency (dist/ is built automatically via the prepare script)
+bun add git@github.com:Arcanum2D/arcanum-ui.git
+
+# or vendored as a tarball (what arcanum-client does — deploy-friendly,
+# no git/npm access needed inside Docker builds)
+bun run build && bun pm pack     # in this repo → arcanum-ui-0.1.0.tgz
+# then in your app: "arcanum-ui": "file:./vendor/arcanum-ui-0.1.0.tgz"
 ```
 
 ```ts
@@ -113,6 +123,8 @@ Token groups: surfaces, borders, accents, semantic (`success/danger/warning/info
 ```bash
 bun install && bun run dev   # then open /demo/
 ```
+
+The kitchen-sink demo doubles as the visual regression fixture — regenerate the screenshots in `docs/` with `bun run demo:screenshot`. It includes a font switcher to validate the three presets against every component.
 
 ## License
 
