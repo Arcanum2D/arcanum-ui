@@ -29,6 +29,8 @@ import 'arcanum-ui/fonts.css';      // just the @font-face declarations
 
 Everything ships inside the `arc` [cascade layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer), so **any unlayered CSS in your app wins by default** — safe to adopt incrementally in an existing project.
 
+> ⚠️ That cuts both ways: a global reset like `* { padding: 0 }` in your (unlayered) CSS will strip the padding from every arc component. Either move your reset into a layer, or exclude the library: `*:not([class*='arc-']) { margin: 0; padding: 0; }`.
+
 ```html
 <button class="arc-btn arc-btn--primary">Play</button>
 
