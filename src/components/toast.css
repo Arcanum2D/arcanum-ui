@@ -1,0 +1,56 @@
+/* arcanum-ui — toasts
+   Markup is created by behaviors/toast.ts (arcToast), but the classes are
+   public so apps can render their own. */
+
+@layer arc.components {
+  .arc-toast-container {
+    position: fixed;
+    top: var(--arc-sp-xl);
+    right: var(--arc-sp-xl);
+    z-index: var(--arc-z-toast);
+    display: flex;
+    flex-direction: column;
+    gap: var(--arc-sp-md);
+    pointer-events: none;
+  }
+
+  .arc-toast-container--bottom {
+    top: auto;
+    bottom: var(--arc-sp-xl);
+  }
+
+  .arc-toast {
+    pointer-events: auto;
+    min-width: 240px;
+    max-width: 360px;
+    background: var(--arc-surface-1);
+    border: var(--arc-border-w) solid var(--arc-border-mid);
+    border-left-width: 6px;
+    box-shadow: var(--arc-shadow-px);
+    padding: var(--arc-sp-md) var(--arc-sp-lg);
+    font-family: var(--arc-font-body);
+    font-size: var(--arc-fs-md);
+    color: var(--arc-text);
+    animation: arc-toast-in 0.2s ease-out;
+  }
+
+  .arc-toast.is-closing {
+    animation: arc-toast-out 0.2s ease-in forwards;
+  }
+
+  .arc-toast--success { border-left-color: var(--arc-success); }
+  .arc-toast--danger { border-left-color: var(--arc-danger); }
+  .arc-toast--warning { border-left-color: var(--arc-warning); }
+  .arc-toast--info { border-left-color: var(--arc-info); }
+  .arc-toast--gold { border-left-color: var(--arc-gold); }
+
+  @keyframes arc-toast-in {
+    from { transform: translateX(24px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  @keyframes arc-toast-out {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(24px); opacity: 0; }
+  }
+}

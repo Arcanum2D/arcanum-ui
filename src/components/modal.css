@@ -1,0 +1,54 @@
+/* arcanum-ui — modal & overlay
+   <div class="arc-overlay">
+     <div class="arc-modal arc-panel arc-window" role="dialog" aria-modal="true">…</div>
+   </div>
+   Open/close + focus handling in behaviors/modal.ts (optional). */
+
+@layer arc.components {
+  .arc-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--arc-z-modal);
+    background: var(--arc-overlay-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: arc-fade-in 0.15s ease-out;
+  }
+
+  .arc-overlay.is-closing {
+    animation: arc-fade-out 0.15s ease-in forwards;
+  }
+
+  .arc-modal {
+    min-width: min(420px, 90vw);
+    max-width: 90vw;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    animation: arc-pop-in 0.18s cubic-bezier(0.22, 1.4, 0.4, 1);
+  }
+
+  .arc-modal__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--arc-sp-md);
+    padding: var(--arc-sp-lg);
+    border-top: var(--arc-border-w) solid var(--arc-surface-0);
+  }
+
+  @keyframes arc-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes arc-fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  @keyframes arc-pop-in {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+}

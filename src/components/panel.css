@@ -1,0 +1,154 @@
+/* arcanum-ui — panels & windows
+   .arc-panel          plain framed box (pixel-box successor)
+   .arc-panel--notched pixel-cut corners (HUD frame style)
+   .arc-panel--gold    gold frame
+   .arc-window         panel with header bar + title + close button */
+
+@layer arc.components {
+  .arc-panel {
+    background: var(--arc-surface-1);
+    border: var(--arc-border-w-heavy) solid var(--arc-surface-0);
+    box-shadow: var(--arc-shadow-px-lg);
+    color: var(--arc-text);
+  }
+
+  .arc-panel--light {
+    border-color: var(--arc-border-light);
+  }
+
+  .arc-panel--gold {
+    border-color: var(--arc-gold);
+  }
+
+  /* Double-bevel "metal" frame: steel ring + black outer ring + inner top
+     glint. Ring colors are per-instance themable via the --arc-bevel-* props. */
+  .arc-panel--bevel {
+    --arc-bevel-ring: #35486e;
+    --arc-bevel-line: #060a14;
+    --arc-bevel-glint: rgba(140, 170, 220, 0.18);
+    position: relative;
+    background: linear-gradient(180deg, rgba(24, 32, 56, 0.97), rgba(9, 13, 26, 0.97));
+    border: 2px solid var(--arc-bevel-line);
+    border-radius: 4px;
+    box-shadow:
+      0 0 0 2px var(--arc-bevel-ring),
+      0 0 0 4px var(--arc-bevel-line),
+      inset 0 1px 0 var(--arc-bevel-glint),
+      0 10px 28px rgba(0, 0, 0, 0.65);
+  }
+
+  .arc-panel--bevel-gold {
+    --arc-bevel-ring: #8a6d2f;
+    --arc-bevel-glint: rgba(220, 190, 140, 0.18);
+  }
+
+  .arc-panel--notched {
+    box-shadow: none; /* clip-path would cut the shadow */
+    clip-path: polygon(
+      var(--arc-notch) 0,
+      calc(100% - var(--arc-notch)) 0,
+      100% var(--arc-notch),
+      100% calc(100% - var(--arc-notch)),
+      calc(100% - var(--arc-notch)) 100%,
+      var(--arc-notch) 100%,
+      0 calc(100% - var(--arc-notch)),
+      0 var(--arc-notch)
+    );
+  }
+
+  .arc-panel__body {
+    padding: var(--arc-sp-lg);
+  }
+
+  /* Inner sunken box (portrait frame, preview wells) */
+  .arc-well {
+    background: var(--arc-surface-0);
+    border: var(--arc-border-w) solid var(--arc-border-mid);
+    box-shadow: var(--arc-shadow-px-inset);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Sunken double-bevel well (inner boxes matching .arc-panel--bevel) */
+  .arc-well--bevel {
+    --arc-bevel-ring: #35486e;
+    --arc-bevel-line: #060a14;
+    background: linear-gradient(180deg, #0d1426, #070b16);
+    border: 2px solid var(--arc-bevel-line);
+    box-shadow:
+      0 0 0 2px var(--arc-bevel-ring),
+      inset 0 3px 8px rgba(0, 0, 0, 0.8);
+  }
+
+  /* --- Window: panel + header --- */
+  .arc-window {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .arc-window__header {
+    display: flex;
+    align-items: center;
+    gap: var(--arc-sp-md);
+    padding: var(--arc-sp-md) var(--arc-sp-lg);
+    border-bottom: var(--arc-border-w) solid var(--arc-surface-0);
+    background: rgba(0, 0, 0, 0.25);
+  }
+
+  .arc-window__title {
+    flex: 1;
+    margin: 0;
+    font-family: var(--arc-font-heading);
+    font-size: var(--arc-fs-2xl);
+    color: var(--arc-accent);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    line-height: 1;
+  }
+
+  /* Cyan diamond marker before the title (Mastery style) */
+  .arc-window__title--gem::before {
+    content: '◆';
+    margin-right: var(--arc-sp-md);
+  }
+
+  .arc-window__close {
+    background: none;
+    border: none;
+    color: var(--arc-border-mid);
+    font-family: var(--arc-font-body);
+    font-size: var(--arc-fs-xl);
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 var(--arc-sp-sm);
+  }
+
+  /* U+00D7 — the multiplication sign IS in the bundled pixel fonts; a literal
+     ✕ (U+2715) is not and falls back to a smooth system glyph */
+  .arc-window__close::before {
+    content: '×';
+  }
+
+  .arc-window__close:hover {
+    color: var(--arc-danger);
+  }
+
+  .arc-window__body {
+    padding: var(--arc-sp-lg);
+    overflow: auto;
+  }
+
+  /* --- Section label (MODO DE COMBATE / MAESTRÍAS) --- */
+  .arc-section-label {
+    font-family: var(--arc-font-heading);
+    font-size: var(--arc-fs-lg);
+    color: var(--arc-text);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    border-bottom: 1px solid var(--arc-border-mid);
+    padding-bottom: var(--arc-sp-sm);
+    margin: var(--arc-sp-lg) 0 var(--arc-sp-md);
+  }
+}

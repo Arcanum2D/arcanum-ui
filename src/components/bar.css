@@ -1,0 +1,68 @@
+/* arcanum-ui — progress / vital bars
+   <div class="arc-bar arc-bar--hp" style="--arc-bar-value: 72%">
+     <div class="arc-bar__fill"></div>
+     <span class="arc-bar__text">HP 540 / 750</span>
+   </div>
+   Fill width comes from --arc-bar-value (inline style or JS). */
+
+@layer arc.components {
+  .arc-bar {
+    position: relative;
+    height: var(--arc-bar-height);
+    background: #000;
+    border: var(--arc-border-w) solid var(--arc-surface-0);
+    overflow: hidden;
+  }
+
+  .arc-bar__fill {
+    height: 100%;
+    width: var(--arc-bar-value, 100%);
+    background: var(--arc-bar-color, var(--arc-accent));
+    transition: width 0.2s;
+    /* subtle top bevel like classic pixel bars */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0) 40%);
+  }
+
+  .arc-bar__text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--arc-font-body);
+    font-size: var(--arc-fs-md);
+    color: var(--arc-text);
+    text-shadow: var(--arc-text-shadow);
+    letter-spacing: 1px;
+    pointer-events: none;
+  }
+
+  /* --- Variants --- */
+  .arc-bar--hp { --arc-bar-color: var(--arc-hp); }
+  .arc-bar--mp { --arc-bar-color: var(--arc-mp); }
+  .arc-bar--xp { --arc-bar-color: var(--arc-xp); }
+  .arc-bar--str { --arc-bar-color: var(--arc-stat-str); }
+  .arc-bar--dex { --arc-bar-color: var(--arc-stat-dex); }
+  .arc-bar--int { --arc-bar-color: var(--arc-stat-int); }
+  .arc-bar--vit { --arc-bar-color: var(--arc-stat-vit); }
+
+  /* Thin variant (mastery progress rows) */
+  .arc-bar--thin {
+    height: calc(var(--arc-bar-height) * 0.5);
+  }
+
+  /* Segmented tick marks overlay (boss bars) */
+  .arc-bar--ticks::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent calc(10% - 1px),
+      rgba(0, 0, 0, 0.6) calc(10% - 1px),
+      rgba(0, 0, 0, 0.6) 10%
+    );
+    pointer-events: none;
+  }
+}

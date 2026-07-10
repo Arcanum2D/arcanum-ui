@@ -1,0 +1,52 @@
+/* arcanum-ui — badges & tags
+   <span class="arc-badge arc-badge--gold">TIER 1 · BRONCE</span> */
+
+@layer arc.components {
+  .arc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--arc-sp-sm);
+    padding: var(--arc-sp-xs) var(--arc-sp-md);
+    border: var(--arc-border-w) solid var(--arc-border-mid);
+    background: rgba(0, 0, 0, 0.35);
+    color: var(--arc-text-dim);
+    font-family: var(--arc-font-body);
+    font-size: var(--arc-fs-sm);
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+
+  .arc-badge--gold {
+    border-color: var(--arc-gold);
+    color: var(--arc-gold);
+  }
+
+  .arc-badge--accent {
+    border-color: var(--arc-accent);
+    color: var(--arc-accent);
+  }
+
+  .arc-badge--success {
+    border-color: var(--arc-success);
+    color: var(--arc-success);
+  }
+
+  .arc-badge--danger {
+    border-color: var(--arc-danger);
+    color: var(--arc-danger);
+  }
+
+  /* Rarity text helper (tooltips, item names) */
+  .arc-rarity-1 { color: var(--arc-rarity-1); }
+  .arc-rarity-2 { color: var(--arc-rarity-2); }
+  .arc-rarity-3 { color: var(--arc-rarity-3); }
+  .arc-rarity-4 { color: var(--arc-rarity-4); }
+  .arc-rarity-5 { color: var(--arc-rarity-5); }
+  .arc-rarity-6 { color: var(--arc-rarity-6); }
+  .arc-rarity-7 { color: var(--arc-rarity-7); }
+  .arc-rarity-8 { color: var(--arc-rarity-8); }
+  .arc-rarity-9 { color: var(--arc-rarity-9); }
+  .arc-rarity-10 { color: var(--arc-rarity-10); }
+}

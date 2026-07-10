@@ -1,0 +1,25 @@
+/* ==========================================================================
+   arcanum-ui — pixel-art RPG UI library
+   https://github.com/… (Arcanum 2D RPG)
+
+   Everything lives in the `arc` cascade layers, so ANY unlayered CSS in the
+   host app wins by default — safe to drop into an existing project.
+   ========================================================================== */
+
+@layer arc.tokens, arc.base, arc.components, arc.utilities;
+
+@import './tokens/fonts.css';
+@import './tokens/tokens.css';
+@import './base/base.css';
+@import './components/button.css';
+@import './components/panel.css';
+@import './components/frame.css';
+@import './components/bar.css';
+@import './components/forms.css';
+@import './components/slot.css';
+@import './components/badge.css';
+@import './components/tooltip.css';
+@import './components/context-menu.css';
+@import './components/modal.css';
+@import './components/toast.css';
+@import './components/misc.css';

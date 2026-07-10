@@ -1,0 +1,182 @@
+/* arcanum-ui — form controls
+   All controls style the NATIVE elements (appearance:none) — no DOM
+   replacement, no JS required. This deliberately avoids RPGUI's biggest
+   limitation (rebuilt selects that can't receive new options at runtime). */
+
+@layer arc.components {
+  /* --- Text input / textarea --- */
+  .arc-input {
+    background: var(--arc-surface-input);
+    border: var(--arc-border-w) solid var(--arc-border-mid);
+    color: var(--arc-text);
+    padding: var(--arc-sp-md);
+    font-family: var(--arc-font-body);
+    font-size: var(--arc-fs-xl);
+    outline: none;
+    box-shadow: var(--arc-shadow-px-inset);
+  }
+
+  .arc-input::placeholder {
+    color: var(--arc-text-dim);
+    opacity: 0.6;
+  }
+
+  .arc-input:focus {
+    border-color: var(--arc-accent);
+  }
+
+  .arc-input:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  textarea.arc-input {
+    resize: vertical;
+    min-height: calc(var(--arc-btn-size) * 1.5);
+  }
+
+  /* --- Select (native, restyled) --- */
+  .arc-select {
+    appearance: none;
+    background-color: var(--arc-surface-input);
+    border: var(--arc-border-w) solid var(--arc-border-mid);
+    color: var(--arc-text);
+    padding: var(--arc-sp-md) calc(var(--arc-sp-2xl) + var(--arc-sp-md)) var(--arc-sp-md) var(--arc-sp-md);
+    font-family: var(--arc-font-body);
+    font-size: var(--arc-fs-lg);
+    cursor: pointer;
+    outline: none;
+    /* pixel chevron, data-URI so the lib stays dependency-free */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h12v2h-2v2h-2v2h-2v2h-2V6H2V4H0z' fill='%2300d2ff'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--arc-sp-md) center;
+  }
+
+  .arc-select:focus {
+    border-color: var(--arc-accent);
+  }
+
+  .arc-select option {
+    background: var(--arc-surface-1);
+    color: var(--arc-text);
+  }
+
+  /* --- Checkbox --- */
+  .arc-checkbox {
+    appearance: none;
+    width: var(--arc-icon-sm);
+    height: var(--arc-icon-sm);
+    background: var(--arc-surface-input);
+    border: var(--arc-border-w) solid var(--arc-border-mid);
+    cursor: pointer;
+    display: inline-grid;
+    place-content: center;
+    vertical-align: middle;
+  }
+
+  .arc-checkbox::before {
+    content: '';
+    /* fixed size from the token — % would resolve against the auto-sized
+       (zero) grid track under place-content:center */
+    width: calc(var(--arc-icon-sm) * 0.5);
+    height: calc(var(--arc-icon-sm) * 0.5);
+    background: var(--arc-accent);
+    transform: scale(0);
+    transition: transform 0.1s;
+  }
+
+  .arc-checkbox:checked::before {
+    transform: scale(1);
+  }
+
+  .arc-checkbox:hover {
+    border-color: var(--arc-accent-dim);
+  }
+
+  /* --- Radio (diamond mark) --- */
+  .arc-radio {
+    appearance: none;
+    width: var(--arc-icon-sm);
+    height: var(--arc-icon-sm);
+    background: var(--arc-surface-input);
+    border: var(--arc-border-w) solid var(--arc-border-mid);
+    cursor: pointer;
+    display: inline-grid;
+    place-content: center;
+    vertical-align: middle;
+  }
+
+  .arc-radio::before {
+    content: '';
+    width: calc(var(--arc-icon-sm) * 0.45);
+    height: calc(var(--arc-icon-sm) * 0.45);
+    background: var(--arc-accent);
+    transform: scale(0) rotate(45deg);
+    transition: transform 0.1s;
+  }
+
+  .arc-radio:checked::before {
+    transform: scale(1) rotate(45deg);
+  }
+
+  .arc-radio:hover {
+    border-color: var(--arc-accent-dim);
+  }
+
+  /* --- Slider (native range, restyled) --- */
+  .arc-slider {
+    appearance: none;
+    width: 100%;
+    height: var(--arc-icon-sm);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .arc-slider::-webkit-slider-runnable-track {
+    height: 10px;
+    background: var(--arc-surface-input);
+    border: 1px solid var(--arc-border-mid);
+  }
+
+  .arc-slider::-moz-range-track {
+    height: 10px;
+    background: var(--arc-surface-input);
+    border: 1px solid var(--arc-border-mid);
+  }
+
+  .arc-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 20px;
+    margin-top: -6px;
+    background: var(--arc-accent);
+    border: var(--arc-border-w) solid var(--arc-border-light);
+    box-shadow: 2px 2px 0 #000;
+  }
+
+  .arc-slider::-moz-range-thumb {
+    width: 10px;
+    height: 16px;
+    border-radius: 0;
+    background: var(--arc-accent);
+    border: var(--arc-border-w) solid var(--arc-border-light);
+    box-shadow: 2px 2px 0 #000;
+  }
+
+  .arc-slider--gold::-webkit-slider-thumb { background: var(--arc-gold); }
+  .arc-slider--gold::-moz-range-thumb { background: var(--arc-gold); }
+
+  /* --- Field row helper --- */
+  .arc-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--arc-sp-sm);
+  }
+
+  .arc-field > label {
+    font-size: var(--arc-fs-sm);
+    color: var(--arc-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+}

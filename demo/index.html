@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en" data-arc-font="jersey">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>arcanum-ui — kitchen sink</title>
+  <link rel="stylesheet" href="../src/arcanum-ui.css" />
+  <style>
+    /* demo-only chrome (unlayered on purpose: proves host CSS wins) */
+    body { margin: 0; min-height: 100vh; }
+    .demo-main { max-width: 960px; margin: 0 auto; padding: 32px 24px 96px; display: flex; flex-direction: column; gap: 40px; }
+    .demo-section > h2 { color: var(--arc-gold); font-family: var(--arc-font-heading); text-transform: uppercase; letter-spacing: 4px; font-size: var(--arc-fs-xl); border-bottom: 1px solid var(--arc-border-mid); padding-bottom: 8px; }
+    .demo-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+    .demo-col { display: flex; flex-direction: column; gap: 12px; }
+    .demo-topbar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 16px; padding: 12px 24px; background: var(--arc-surface-1); border-bottom: 2px solid var(--arc-border-mid); }
+    .demo-topbar h1 { margin: 0; flex: 1; font-size: var(--arc-fs-2xl); color: var(--arc-accent); font-family: var(--arc-font-heading); letter-spacing: 3px; text-transform: uppercase; }
+  </style>
+</head>
+<body class="arc-root">
+  <header class="demo-topbar">
+    <h1>◆ arcanum-ui</h1>
+    <label for="font-picker" style="color: var(--arc-text-dim)">Font</label>
+    <select id="font-picker" class="arc-select">
+      <option value="jersey" selected>Jersey 25 (default)</option>
+      <option value="arcade">Press Start 2P (arcade)</option>
+      <option value="clean">VT323 (clean)</option>
+    </select>
+  </header>
+
+  <main class="demo-main">
+
+    <!-- ================= Showcase: player HUD (Zephi reference) ================= -->
+    <section class="demo-section">
+      <h2>Showcase — Player HUD</h2>
+      <div class="arc-panel arc-panel--notched" style="max-width: 480px; padding: 12px; display: flex; gap: 14px; background: var(--arc-surface-1);">
+        <div class="arc-well" style="width: 84px; height: 84px; flex-shrink: 0;">
+          <span style="font-size: var(--arc-fs-3xl); color: var(--arc-accent);">Z</span>
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+          <div class="demo-row" style="gap: 12px;">
+            <strong style="font-size: var(--arc-fs-2xl); letter-spacing: 3px;">ZEPHI</strong>
+            <span class="arc-badge arc-badge--gold">Tier 1 · Bronce</span>
+          </div>
+          <div class="arc-bar arc-bar--hp" style="--arc-bar-value: 100%;">
+            <div class="arc-bar__fill"></div>
+            <span class="arc-bar__text">HP 540 / 540</span>
+          </div>
+          <div class="arc-bar arc-bar--mp" style="--arc-bar-value: 100%;">
+            <div class="arc-bar__fill"></div>
+            <span class="arc-bar__text">MP 410 / 410</span>
+          </div>
+          <div class="arc-bar arc-bar--xp arc-bar--thin" style="--arc-bar-value: 3%;">
+            <div class="arc-bar__fill"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Showcase: mastery window ================= -->
+    <section class="demo-section">
+      <h2>Showcase — Mastery Window</h2>
+      <div class="arc-panel arc-window" style="max-width: 520px;">
+        <div class="arc-window__header">
+          <h3 class="arc-window__title arc-window__title--gem">Mastery</h3>
+          <button class="arc-window__close" aria-label="Close"></button>
+        </div>
+        <div class="arc-window__body demo-col">
+          <div class="arc-panel arc-panel--light" style="padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+            <div class="demo-row" style="justify-content: space-between;">
+              <span><span class="arc-badge">Tier 1</span> &nbsp;Bronce</span>
+              <span style="color: var(--arc-gold);">2 / 180</span>
+            </div>
+            <div class="arc-bar arc-bar--xp arc-bar--thin" style="--arc-bar-value: 2%;">
+              <div class="arc-bar__fill"></div>
+            </div>
+            <div style="text-align: right; color: var(--arc-text-dim); font-size: var(--arc-fs-md);">Próximo rango: Hierro en 25 pts</div>
+          </div>
+
+          <div class="arc-section-label">Modo de combate</div>
+          <div class="demo-row">
+            <button class="arc-btn arc-btn--toggle arc-btn--icon">MEL</button>
+            <button class="arc-btn arc-btn--toggle arc-btn--icon">DIS</button>
+            <button class="arc-btn arc-btn--toggle arc-btn--icon is-active">REC</button>
+          </div>
+
+          <div class="arc-section-label">Maestrías</div>
+          <div class="arc-panel" style="padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+            <div class="demo-row" style="justify-content: space-between;">
+              <strong style="color: var(--arc-stat-int); letter-spacing: 2px;">INT</strong>
+              <span class="demo-row" style="gap: 8px;">
+                <span style="font-size: var(--arc-fs-2xl);">1</span>
+                <button class="arc-btn arc-btn--step-up" aria-label="Increase INT"></button>
+                <button class="arc-btn arc-btn--step-down" aria-label="Decrease INT"></button>
+              </span>
+            </div>
+            <div class="arc-bar arc-bar--int arc-bar--thin" style="--arc-bar-value: 1.3%;">
+              <div class="arc-bar__fill"></div>
+            </div>
+            <div class="demo-row" style="justify-content: space-between; color: var(--arc-text-dim); font-size: var(--arc-fs-md);">
+              <span>→ Maná +15 · M.DEF +1</span>
+              <span>1.0 / 75</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Showcase: inventory (built by JS, like the real client) ================= -->
+    <section class="demo-section">
+      <h2>Showcase — Inventario</h2>
+      <p style="color: var(--arc-text-dim); margin: 0 0 12px;">Hover = tooltip · click derecho = menú contextual · iconos pixel-art generados (sin archivos de imagen).</p>
+      <div class="arc-panel arc-window" style="max-width: 340px;">
+        <div class="arc-window__header">
+          <h3 class="arc-window__title arc-window__title--gem">Inventario</h3>
+          <button class="arc-window__close" aria-label="Close"></button>
+        </div>
+        <div class="arc-window__body">
+          <div id="inv-grid" class="arc-slot-grid" style="--arc-slot-cols: 5; justify-content: center;"></div>
+          <hr class="arc-divider" />
+          <div class="demo-row" style="justify-content: flex-end; gap: 20px; font-size: var(--arc-fs-lg);">
+            <span style="color: var(--arc-gold);">◆ 1.250 aeris</span>
+            <span style="color: var(--arc-accent);">◆ 18 lumen</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Framed containers ================= -->
+    <section class="demo-section">
+      <h2>Framed containers</h2>
+      <div class="demo-row" style="align-items: stretch;">
+        <div class="arc-panel--framed" style="width: 220px; padding: 16px;">class:<br />arc-panel--framed</div>
+        <div class="arc-panel--framed-gold" style="width: 220px; padding: 16px;">class:<br />arc-panel--framed-gold</div>
+        <div class="arc-panel--framed-accent" style="width: 220px; padding: 16px;">class:<br />arc-panel--framed-accent</div>
+      </div>
+      <div class="demo-row" style="margin-top: 16px; align-items: stretch;">
+        <div class="arc-panel--framed-gold" style="--arc-frame-w: 8px; padding: 12px;">Thin (--arc-frame-w: 8px)</div>
+        <div class="arc-panel--framed" style="--arc-frame-w: 24px; padding: 12px;">Thick (24px)</div>
+      </div>
+      <div class="demo-row" style="margin-top: 24px; align-items: stretch;">
+        <div class="arc-panel arc-panel--bevel" style="width: 240px; padding: 16px;">class:<br />arc-panel--bevel<br /><span style="color: var(--arc-text-dim); font-size: var(--arc-fs-md);">bisel doble "metal"</span></div>
+        <div class="arc-panel arc-panel--bevel arc-panel--bevel-gold" style="width: 240px; padding: 16px;">class:<br />arc-panel--bevel-gold</div>
+        <div class="arc-panel arc-panel--bevel" style="--arc-bevel-ring: var(--arc-accent-dim); width: 240px; padding: 16px;">custom:<br />--arc-bevel-ring: cian</div>
+      </div>
+      <div class="demo-row" style="margin-top: 24px;">
+        <div class="arc-panel arc-panel--bevel" style="padding: 12px 14px;">
+          <div style="display: flex; gap: 8px;" id="hotbar-demo">
+            <div class="arc-slot arc-slot--bevel"><span class="arc-slot__key">1</span><div class="arc-slot__item"><div class="arc-slot__icon" data-icon="sword"></div></div></div>
+            <div class="arc-slot arc-slot--bevel" data-rarity="3"><span class="arc-slot__key">2</span><div class="arc-slot__item"><div class="arc-slot__icon" data-icon="bow"></div></div></div>
+            <div class="arc-slot arc-slot--bevel" data-rarity="4"><span class="arc-slot__key">3</span><div class="arc-slot__item"><div class="arc-slot__icon" data-icon="potionRed"></div></div><span class="arc-slot__count">12</span></div>
+            <div class="arc-slot arc-slot--bevel is-selected"><span class="arc-slot__key">4</span><div class="arc-slot__item"><div class="arc-slot__icon" data-icon="scroll"></div></div></div>
+            <div class="arc-slot arc-slot--bevel"><span class="arc-slot__key">5</span></div>
+          </div>
+        </div>
+        <div class="arc-well arc-well--bevel" style="width: 120px; height: 88px;">
+          <span style="color: var(--arc-text-dim); font-size: var(--arc-fs-sm); text-align: center;">arc-well<br />--bevel</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Buttons ================= -->
+    <section class="demo-section">
+      <h2>Buttons</h2>
+      <div class="demo-row">
+        <button class="arc-btn">Default</button>
+        <button class="arc-btn arc-btn--primary">Primary</button>
+        <button class="arc-btn arc-btn--gold">Gold</button>
+        <button class="arc-btn arc-btn--danger">Danger</button>
+        <button class="arc-btn arc-btn--ghost">Ghost</button>
+        <button class="arc-btn" disabled>Disabled</button>
+      </div>
+      <div class="demo-row" style="margin-top: 12px;">
+        <button class="arc-btn arc-btn--sm">Small</button>
+        <button class="arc-btn">Normal</button>
+        <button class="arc-btn arc-btn--lg">Large</button>
+        <button class="arc-btn arc-btn--icon" aria-label="Attack"><span class="arc-slot__icon" data-icon="sword" style="width: 24px; height: 24px;"></span></button>
+      </div>
+    </section>
+
+    <!-- ================= Bars ================= -->
+    <section class="demo-section">
+      <h2>Bars</h2>
+      <div class="demo-col" style="max-width: 420px;">
+        <div class="arc-bar arc-bar--hp" style="--arc-bar-value: 72%;"><div class="arc-bar__fill"></div><span class="arc-bar__text">HP 540 / 750</span></div>
+        <div class="arc-bar arc-bar--mp" style="--arc-bar-value: 45%;"><div class="arc-bar__fill"></div><span class="arc-bar__text">MP 184 / 410</span></div>
+        <div class="arc-bar arc-bar--xp" style="--arc-bar-value: 30%;"><div class="arc-bar__fill"></div><span class="arc-bar__text">Bronce 54 / 180</span></div>
+        <div class="arc-bar arc-bar--hp arc-bar--ticks" style="--arc-bar-value: 84%;"><div class="arc-bar__fill"></div><span class="arc-bar__text">BOSS — Corruptio</span></div>
+        <div class="demo-row">
+          <div class="arc-bar arc-bar--str arc-bar--thin" style="--arc-bar-value: 60%; flex:1;"><div class="arc-bar__fill"></div></div>
+          <div class="arc-bar arc-bar--dex arc-bar--thin" style="--arc-bar-value: 40%; flex:1;"><div class="arc-bar__fill"></div></div>
+          <div class="arc-bar arc-bar--int arc-bar--thin" style="--arc-bar-value: 80%; flex:1;"><div class="arc-bar__fill"></div></div>
+          <div class="arc-bar arc-bar--vit arc-bar--thin" style="--arc-bar-value: 25%; flex:1;"><div class="arc-bar__fill"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Forms ================= -->
+    <section class="demo-section">
+      <h2>Forms</h2>
+      <div class="demo-row" style="align-items: flex-end;">
+        <div class="arc-field">
+          <label for="demo-name">Character name</label>
+          <input id="demo-name" class="arc-input" placeholder="Zephi" />
+        </div>
+        <div class="arc-field">
+          <label for="demo-class">Server</label>
+          <select id="demo-class" class="arc-select">
+            <option>Arcanum I</option>
+            <option>Arcanum II</option>
+          </select>
+        </div>
+      </div>
+      <div class="demo-row" style="margin-top: 16px;">
+        <label class="demo-row" style="gap: 8px;"><input type="checkbox" class="arc-checkbox" checked /> Música</label>
+        <label class="demo-row" style="gap: 8px;"><input type="checkbox" class="arc-checkbox" /> Efectos</label>
+        <label class="demo-row" style="gap: 8px;"><input type="radio" name="q" class="arc-radio" checked /> Calidad alta</label>
+        <label class="demo-row" style="gap: 8px;"><input type="radio" name="q" class="arc-radio" /> Calidad baja</label>
+      </div>
+      <div class="demo-row" style="margin-top: 16px; max-width: 420px;">
+        <input type="range" class="arc-slider" value="70" />
+        <input type="range" class="arc-slider arc-slider--gold" value="30" />
+      </div>
+    </section>
+
+    <!-- ================= Slots ================= -->
+    <section class="demo-section">
+      <h2>Item slots</h2>
+      <p style="color: var(--arc-text-dim); margin: 0 0 12px;">Pasa el ratón por los slots — tooltip real vía <code>arcTooltip()</code>.</p>
+      <div class="arc-slot-grid" id="slot-demo" style="--arc-slot-cols: 8;">
+        <div class="arc-slot"><span class="arc-slot__key">1</span></div>
+        <div class="arc-slot" data-rarity="1"><div class="arc-slot__item"><div class="arc-slot__icon" data-icon="sword"></div></div><span class="arc-slot__count">3</span></div>
+        <div class="arc-slot" data-rarity="2"><div class="arc-slot__item"><div class="arc-slot__icon" data-icon="shield"></div></div></div>
+        <div class="arc-slot" data-rarity="3"><div class="arc-slot__item"><div class="arc-slot__icon" data-icon="bow"></div></div></div>
+        <div class="arc-slot" data-rarity="4"><div class="arc-slot__item"><div class="arc-slot__icon" data-icon="ring"></div></div></div>
+        <div class="arc-slot" data-rarity="5"><div class="arc-slot__item"><div class="arc-slot__icon" data-icon="crown"></div></div></div>
+        <div class="arc-slot is-selected" data-rarity="7"><div class="arc-slot__item"><div class="arc-slot__icon" data-icon="gem"></div></div></div>
+        <div class="arc-slot" data-rarity="4"><div class="arc-slot__item"><div class="arc-slot__icon" data-icon="potionRed"></div></div><div class="arc-slot__cooldown" style="--arc-cooldown: 60%;"></div></div>
+      </div>
+    </section>
+
+    <!-- ================= Badges / rarity ================= -->
+    <section class="demo-section">
+      <h2>Badges &amp; rarity</h2>
+      <div class="demo-row">
+        <span class="arc-badge">Neutral</span>
+        <span class="arc-badge arc-badge--gold">Tier 1 · Bronce</span>
+        <span class="arc-badge arc-badge--accent">Party</span>
+        <span class="arc-badge arc-badge--success">Online</span>
+        <span class="arc-badge arc-badge--danger">PvP</span>
+      </div>
+      <div class="demo-row" style="margin-top: 12px;">
+        <span class="arc-rarity-1">Common</span>
+        <span class="arc-rarity-2">Uncommon</span>
+        <span class="arc-rarity-3">Rare</span>
+        <span class="arc-rarity-4">Epic</span>
+        <span class="arc-rarity-5">Legendary</span>
+        <span class="arc-rarity-6">Mythical</span>
+        <span class="arc-rarity-7">Unique</span>
+        <span class="arc-rarity-8">Godly</span>
+        <span class="arc-rarity-9">Divine</span>
+        <span class="arc-rarity-10">Eternal</span>
+      </div>
+    </section>
+
+    <!-- ================= Tabs / list / table (functional, via arcTabs) ================= -->
+    <section class="demo-section">
+      <h2>Tabs, list &amp; table</h2>
+      <div class="arc-tabs" id="auction-tabs">
+        <button class="arc-tab is-active" data-arc-tab="#pane-buy">Comprar</button>
+        <button class="arc-tab" data-arc-tab="#pane-sell">Vender</button>
+        <button class="arc-tab" data-arc-tab="#pane-bids">Mis pujas</button>
+      </div>
+
+      <div id="pane-buy">
+        <table class="arc-table" style="margin-top: 12px;">
+          <thead><tr><th>Item</th><th>Vendedor</th><th>Precio</th></tr></thead>
+          <tbody>
+            <tr><td class="arc-rarity-4">Amuleto arcano</td><td>Zephi</td><td style="color: var(--arc-gold);">1.250</td></tr>
+            <tr><td class="arc-rarity-3">Espada de hierro</td><td>Korrin</td><td style="color: var(--arc-gold);">340</td></tr>
+            <tr><td class="arc-rarity-2">Poción de maná</td><td>Lyra</td><td style="color: var(--arc-gold);">18</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="pane-sell" hidden>
+        <ul class="arc-list arc-list--hover" style="margin-top: 12px;">
+          <li><span class="arc-rarity-5" style="flex: 1;">Corona del Ocaso</span><span class="arc-badge arc-badge--gold">En venta</span><span style="color: var(--arc-gold);">9.800</span></li>
+          <li class="is-selected"><span class="arc-rarity-3" style="flex: 1;">Botas de explorador</span><span class="arc-badge">Borrador</span><span style="color: var(--arc-gold);">120</span></li>
+          <li><span class="arc-rarity-2" style="flex: 1;">Piel de lobo ×14</span><span class="arc-badge arc-badge--success">Vendido</span><span style="color: var(--arc-gold);">56</span></li>
+        </ul>
+      </div>
+
+      <div id="pane-bids" hidden>
+        <p style="margin-top: 16px; color: var(--arc-text-dim); text-align: center; padding: 24px; border: 2px dashed var(--arc-border-mid);">
+          No tienes pujas activas
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= Tooltip / modal / toast ================= -->
+    <section class="demo-section">
+      <h2>Tooltip, modal &amp; toast</h2>
+      <div class="demo-row">
+        <button id="tooltip-target" class="arc-btn arc-btn--gold">Hover: tooltip de item</button>
+        <button id="tooltip-simple" class="arc-btn arc-btn--ghost">Hover: tooltip simple</button>
+      </div>
+      <div class="demo-row" style="margin-top: 16px;">
+        <button id="open-modal" class="arc-btn arc-btn--primary">Abrir modal</button>
+        <button id="toast-ok" class="arc-btn">Toast éxito</button>
+        <button id="toast-err" class="arc-btn arc-btn--danger">Toast error</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- modal markup -->
+  <div id="demo-overlay" class="arc-overlay" style="display: none;">
+    <div class="arc-modal arc-panel arc-window" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title">
+      <div class="arc-window__header">
+        <h3 id="demo-modal-title" class="arc-window__title arc-window__title--gem">Confirmar</h3>
+        <button id="demo-modal-x" class="arc-window__close" aria-label="Close"></button>
+      </div>
+      <div class="arc-window__body">¿Destruir <span class="arc-rarity-5">Corona del Ocaso</span>? Esta acción no se puede deshacer.</div>
+      <div class="arc-modal__footer">
+        <button id="demo-modal-cancel" class="arc-btn arc-btn--ghost">Cancelar</button>
+        <button class="arc-btn arc-btn--danger">Destruir</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { arcToast, arcModal, arcTabs, arcTooltip, arcContextMenu, setArcFont } from '../src/index.ts';
+    import { PIXEL_ICONS } from './pixel-icons.js';
+
+    document.getElementById('font-picker').addEventListener('change', (e) => setArcFont(e.target.value));
+
+    // apply pixel-art icons to all static data-icon elements
+    document.querySelectorAll('[data-icon]').forEach((el) => {
+      el.style.backgroundImage = PIXEL_ICONS[el.dataset.icon];
+    });
+
+    // --- tabs (functional) ---
+    arcTabs(document.getElementById('auction-tabs'));
+
+    // --- showcase: inventory built from data, like the real client ---
+    const INV_ITEMS = [
+      { icon: 'sword', name: 'Espada corta', rarity: 1, count: 1, rows: [['Ataque', '+4']] },
+      { icon: 'shield', name: 'Escudo de roble', rarity: 2, count: 1, rows: [['P.DEF', '+6']] },
+      { icon: 'bow', name: 'Arco élfico', rarity: 3, count: 1, rows: [['Ataque', '+11'], ['DEX', '+2']] },
+      { icon: 'potionRed', name: 'Poción de vida', rarity: 1, count: 12, rows: [['Restaura', '150 HP']], cooldown: 45 },
+      { icon: 'potionBlue', name: 'Poción de maná', rarity: 1, count: 7, rows: [['Restaura', '90 MP']] },
+      { icon: 'crown', name: 'Corona del Ocaso', rarity: 5, count: 1, rows: [['Todos los stats', '+5']], flavor: 'Forjada en el último atardecer.' },
+      { icon: 'gem', name: 'Gema del Corruptio', rarity: 7, count: 1, rows: [['Efecto', '???']], flavor: 'Late como un corazón.' },
+      { icon: 'ring', name: 'Anillo de sangre', rarity: 4, count: 1, rows: [['VIT', '+3'], ['Regen', '+2']] },
+      { icon: 'scroll', name: 'Pergamino de teletransporte', rarity: 2, count: 3, rows: [['Destino', 'Aldea Inicial']] },
+      { icon: 'meat', name: 'Carne asada', rarity: 1, count: 5, rows: [['Restaura', '40 HP']] },
+    ];
+
+    const invGrid = document.getElementById('inv-grid');
+    for (let i = 0; i < 25; i++) {
+      const item = INV_ITEMS[i];
+      const slot = document.createElement('div');
+      slot.className = 'arc-slot';
+      if (item) {
+        slot.dataset.rarity = String(item.rarity);
+        const wrap = document.createElement('div');
+        wrap.className = 'arc-slot__item';
+        wrap.draggable = true;
+        const icon = document.createElement('div');
+        icon.className = 'arc-slot__icon';
+        icon.style.backgroundImage = PIXEL_ICONS[item.icon];
+        wrap.appendChild(icon);
+        slot.appendChild(wrap);
+        if (item.count > 1) {
+          const count = document.createElement('span');
+          count.className = 'arc-slot__count';
+          count.textContent = item.count;
+          slot.appendChild(count);
+        }
+        if (item.cooldown) {
+          const cd = document.createElement('div');
+          cd.className = 'arc-slot__cooldown';
+          cd.style.setProperty('--arc-cooldown', item.cooldown + '%');
+          slot.appendChild(cd);
+        }
+        arcTooltip(slot, {
+          content: () => `
+            <div class="arc-tooltip__title arc-rarity-${item.rarity}">${item.name}</div>
+            ${item.rows.map(([k, v]) => `<div class="arc-tooltip__row"><span>${k}</span><span>${v}</span></div>`).join('')}
+            ${item.flavor ? `<div class="arc-tooltip__flavor">"${item.flavor}"</div>` : ''}`,
+        });
+        slot.addEventListener('contextmenu', (e) => {
+          e.preventDefault();
+          arcContextMenu(e.clientX, e.clientY, [
+            { label: 'Usar', onSelect: () => arcToast({ message: `Usaste ${item.name}`, variant: 'info' }) },
+            { label: 'Equipar', onSelect: () => arcToast({ message: `${item.name} equipado`, variant: 'success' }) },
+            { label: 'Dividir', disabled: item.count <= 1, onSelect: () => arcToast({ message: `Dividiendo ${item.name}` }) },
+            { label: 'Tirar', danger: true, dividerBefore: true, onSelect: () => arcToast({ message: `${item.name} destruido`, variant: 'danger' }) },
+          ]);
+        });
+      }
+      invGrid.appendChild(slot);
+    }
+
+    // --- tooltips: item card on every slot, lazy content like real game data ---
+    const itemTip = (name, rarityClass, rows, flavor) => () => `
+      <div class="arc-tooltip__title ${rarityClass}">${name}</div>
+      ${rows.map(([k, v]) => `<div class="arc-tooltip__row"><span>${k}</span><span>${v}</span></div>`).join('')}
+      ${flavor ? `<div class="arc-tooltip__flavor">"${flavor}"</div>` : ''}`;
+
+    const slotItems = [
+      null,
+      itemTip('Espada corta', 'arc-rarity-1', [['Ataque', '+4'], ['Cantidad', '3']]),
+      itemTip('Escudo de roble', 'arc-rarity-2', [['P.DEF', '+6']]),
+      itemTip('Arco élfico', 'arc-rarity-3', [['Ataque', '+11'], ['DEX', '+2']]),
+      itemTip('Amuleto arcano', 'arc-rarity-4', [['M.DEF', '+12'], ['INT', '+3']], 'Susurra secretos del Corruptio.'),
+      itemTip('Corona del Ocaso', 'arc-rarity-5', [['Todos los stats', '+5']], 'Forjada en el último atardecer.'),
+      itemTip('Gema única', 'arc-rarity-7', [['Efecto', '???']]),
+      itemTip('Poción rara', 'arc-rarity-4', [['Cooldown', '60%']]),
+    ];
+    document.querySelectorAll('#slot-demo .arc-slot').forEach((slot, i) => {
+      if (slotItems[i]) arcTooltip(slot, { content: slotItems[i] });
+    });
+
+    arcTooltip(document.getElementById('tooltip-target'), {
+      content: itemTip('Amuleto arcano', 'arc-rarity-4', [['M.DEF', '+12'], ['INT', '+3']], 'Susurra secretos del Corruptio.'),
+    });
+    arcTooltip(document.getElementById('tooltip-simple'), { content: 'Un tooltip de texto plano' });
+
+    const modal = arcModal(document.getElementById('demo-overlay'));
+    document.getElementById('open-modal').addEventListener('click', () => modal.open());
+    document.getElementById('demo-modal-x').addEventListener('click', () => modal.close());
+    document.getElementById('demo-modal-cancel').addEventListener('click', () => modal.close());
+
+    document.getElementById('toast-ok').addEventListener('click', () =>
+      arcToast({ message: '+25 puntos de maestría', variant: 'success' }));
+    document.getElementById('toast-err').addEventListener('click', () =>
+      arcToast({ message: 'Inventario lleno', variant: 'danger', position: 'bottom' }));
+  </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+/* ==========================================================================
+   arcanum-ui — design tokens
+   Default theme: "Arcanum dark" (navy / black / cyan / gold).
+   Every visual decision in the library reads from these custom properties;
+   re-theme by overriding them, never by editing component rules.
+   ========================================================================== */
+
+@layer arc.tokens {
+  :root {
+    /* --- Surfaces (darkest → lightest) --- */
+    --arc-surface-0: #0d0d16;                 /* outer frames, page bg */
+    --arc-surface-1: #1a1a2e;                 /* panel body, bar troughs */
+    --arc-surface-2: #222034;                 /* boxes, buttons */
+    --arc-surface-3: #2a2a3e;                 /* hover / raised */
+    --arc-surface-input: #111118;             /* sunken fields */
+    --arc-overlay-bg: rgba(10, 10, 18, 0.75); /* modal backdrop */
+
+    /* --- Borders --- */
+    --arc-border-light: #e0e0e0;
+    --arc-border-mid: #555566;
+    --arc-border-dark: #121212;
+    --arc-border-w: 2px;
+    --arc-border-w-heavy: 4px;
+
+    /* --- Accents --- */
+    --arc-accent: #00d2ff;        /* cyan — primary accent (titles, focus, active) */
+    --arc-accent-dim: #007b96;
+    --arc-gold: #f5c542;          /* badges, xp, highlights */
+    --arc-gold-bright: #ffd700;
+
+    /* --- Semantic --- */
+    --arc-success: #2ecc71;
+    --arc-danger: #e74c3c;
+    --arc-warning: #f39c12;
+    --arc-info: #3498db;
+
+    /* --- Vitals --- */
+    --arc-hp: #c0392b;
+    --arc-mp: #2980b9;
+    --arc-xp: #f5c542;
+
+    /* --- Stats (mastery) --- */
+    --arc-stat-str: #e74c3c;
+    --arc-stat-dex: #2ecc71;
+    --arc-stat-int: #3498db;
+    --arc-stat-vit: #f39c12;
+
+    /* --- Rarity (numeric scale 1-10, mirrors game data) --- */
+    --arc-rarity-1: #aaaaaa;  /* common */
+    --arc-rarity-2: #1eff00;  /* uncommon */
+    --arc-rarity-3: #0070dd;  /* rare */
+    --arc-rarity-4: #a335ee;  /* epic */
+    --arc-rarity-5: #ff8000;  /* legendary */
+    --arc-rarity-6: #e6cc80;  /* mythical */
+    --arc-rarity-7: #00ccff;  /* unique */
+    --arc-rarity-8: #ff4444;  /* godly */
+    --arc-rarity-9: #ffdd00;  /* divine */
+    --arc-rarity-10: #ff69b4; /* eternal */
+
+    /* --- Text --- */
+    --arc-text: #ffffff;
+    --arc-text-dim: #aaaaaa;
+    --arc-text-inverse: #0d0d16;
+    --arc-text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+
+    /* --- Z-index scale (replaces magic numbers) --- */
+    --arc-z-hud: 100;
+    --arc-z-panel: 500;
+    --arc-z-modal: 1000;
+    --arc-z-tooltip: 1500;
+    --arc-z-toast: 2000;
+    --arc-z-critical: 9999; /* connection lost, death screen */
+
+    /* --- Typography ---
+       Player-selectable presets: set data-arc-font="jersey|arcade|clean"
+       on <html>. Components must ONLY use --arc-font-body/--arc-font-heading
+       and the --arc-fs-* scale (which absorbs per-font metric differences
+       via --arc-font-scale). */
+    --arc-font-jersey: 'Jersey25', monospace;
+    --arc-font-arcade: 'Press Start 2P', monospace;
+    --arc-font-clean: 'VT323', monospace;
+
+    --arc-font-body: var(--arc-font-jersey);
+    --arc-font-heading: var(--arc-font-jersey);
+    --arc-font-scale: 1;
+
+    /* --- Font size scale (responsive 1366→1920, × font preset scale) --- */
+    --arc-fs-2xs: calc(var(--arc-font-scale) * clamp(7px, calc(7px + 1 * (100vw - 1366px) / 554), 8px));
+    --arc-fs-xs: calc(var(--arc-font-scale) * clamp(9px, calc(9px + 2 * (100vw - 1366px) / 554), 11px));
+    --arc-fs-sm: calc(var(--arc-font-scale) * clamp(12px, calc(12px + 2 * (100vw - 1366px) / 554), 14px));
+    --arc-fs-md: calc(var(--arc-font-scale) * clamp(14px, calc(14px + 2 * (100vw - 1366px) / 554), 16px));
+    --arc-fs-lg: calc(var(--arc-font-scale) * clamp(16px, calc(16px + 4 * (100vw - 1366px) / 554), 20px));
+    --arc-fs-xl: calc(var(--arc-font-scale) * clamp(18px, calc(18px + 4 * (100vw - 1366px) / 554), 22px));
+    --arc-fs-2xl: calc(var(--arc-font-scale) * clamp(20px, calc(20px + 4 * (100vw - 1366px) / 554), 24px));
+    --arc-fs-3xl: calc(var(--arc-font-scale) * clamp(28px, calc(28px + 4 * (100vw - 1366px) / 554), 32px));
+    --arc-fs-hero: calc(var(--arc-font-scale) * clamp(48px, calc(48px + 16 * (100vw - 1366px) / 554), 64px));
+
+    /* --- Spacing (responsive 1366→1920) --- */
+    --arc-sp-xs: 2px;
+    --arc-sp-sm: clamp(4px, calc(4px + 2 * (100vw - 1366px) / 554), 6px);
+    --arc-sp-md: clamp(6px, calc(6px + 2 * (100vw - 1366px) / 554), 8px);
+    --arc-sp-lg: clamp(12px, calc(12px + 4 * (100vw - 1366px) / 554), 16px);
+    --arc-sp-xl: clamp(16px, calc(16px + 8 * (100vw - 1366px) / 554), 24px);
+    --arc-sp-2xl: clamp(24px, calc(24px + 8 * (100vw - 1366px) / 554), 32px);
+
+    /* --- Component dimensions --- */
+    --arc-slot-size: clamp(42px, calc(42px + 10 * (100vw - 1366px) / 554), 52px);
+    --arc-btn-size: clamp(40px, calc(40px + 8 * (100vw - 1366px) / 554), 48px);
+    --arc-bar-height: clamp(18px, calc(18px + 4 * (100vw - 1366px) / 554), 22px);
+    --arc-icon-sm: clamp(16px, calc(16px + 4 * (100vw - 1366px) / 554), 20px);
+    --arc-icon-md: clamp(28px, calc(28px + 4 * (100vw - 1366px) / 554), 32px);
+    --arc-icon-lg: clamp(40px, calc(40px + 8 * (100vw - 1366px) / 554), 48px);
+
+    /* --- Pixel effects --- */
+    --arc-shadow-px: 4px 4px 0 #000;
+    --arc-shadow-px-lg: 6px 6px 0 #000;
+    --arc-shadow-px-inset: inset 3px 3px 0 #000;
+    --arc-notch: 6px; /* corner cut size on notched panels */
+  }
+
+  /* --- Player font presets --- */
+  [data-arc-font='jersey'] {
+    --arc-font-body: var(--arc-font-jersey);
+    --arc-font-heading: var(--arc-font-jersey);
+    --arc-font-scale: 1;
+  }
+
+  /* Press Start 2P renders ~60% wider/taller than Jersey at equal px */
+  [data-arc-font='arcade'] {
+    --arc-font-body: var(--arc-font-arcade);
+    --arc-font-heading: var(--arc-font-arcade);
+    --arc-font-scale: 0.62;
+  }
+
+  /* VT323 has a small x-height; bump it up for legibility */
+  [data-arc-font='clean'] {
+    --arc-font-body: var(--arc-font-clean);
+    --arc-font-heading: var(--arc-font-clean);
+    --arc-font-scale: 1.1;
+  }
+}

@@ -1,0 +1,181 @@
+/* arcanum-ui — buttons
+   <button class="arc-btn">Play</button>
+   Variants: --primary --gold --danger --ghost | Sizes: --sm --lg
+   Square icon button: --icon | Toggle (MEL/DIS/REC style): --toggle + .is-active */
+
+@layer arc.components {
+  .arc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--arc-sp-sm);
+    background: var(--arc-surface-2);
+    border: var(--arc-border-w) solid var(--arc-border-light);
+    color: var(--arc-text);
+    padding: var(--arc-sp-md) var(--arc-sp-lg);
+    font-family: var(--arc-font-body);
+    font-size: var(--arc-fs-xl);
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: var(--arc-shadow-px);
+    transition: background 0.15s, color 0.15s, transform 0.1s, box-shadow 0.1s, border-color 0.15s;
+  }
+
+  .arc-btn:hover:not(:disabled) {
+    background: var(--arc-surface-3);
+    color: var(--arc-accent);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #000;
+  }
+
+  .arc-btn:active:not(:disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000;
+  }
+
+  .arc-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  /* --- Variants --- */
+  .arc-btn--primary {
+    background: var(--arc-accent);
+    border-color: var(--arc-border-light);
+    color: var(--arc-text-inverse);
+  }
+
+  .arc-btn--primary:hover:not(:disabled) {
+    background: var(--arc-border-light);
+    color: var(--arc-text-inverse);
+  }
+
+  .arc-btn--gold {
+    background: var(--arc-surface-2);
+    border-color: var(--arc-gold);
+    color: var(--arc-gold);
+  }
+
+  .arc-btn--gold:hover:not(:disabled) {
+    background: var(--arc-gold);
+    color: var(--arc-text-inverse);
+  }
+
+  .arc-btn--danger {
+    border-color: var(--arc-danger);
+    color: var(--arc-danger);
+  }
+
+  .arc-btn--danger:hover:not(:disabled) {
+    background: var(--arc-danger);
+    color: var(--arc-text);
+  }
+
+  .arc-btn--ghost {
+    background: transparent;
+    border-color: var(--arc-border-mid);
+    box-shadow: none;
+    color: var(--arc-text-dim);
+  }
+
+  .arc-btn--ghost:hover:not(:disabled) {
+    border-color: var(--arc-border-light);
+    color: var(--arc-text);
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* --- Sizes --- */
+  .arc-btn--sm {
+    padding: var(--arc-sp-sm) var(--arc-sp-md);
+    font-size: var(--arc-fs-sm);
+  }
+
+  .arc-btn--lg {
+    padding: var(--arc-sp-lg) var(--arc-sp-2xl);
+    font-size: var(--arc-fs-3xl);
+  }
+
+  /* --- Square icon button (HUD) --- */
+  .arc-btn--icon {
+    width: var(--arc-btn-size);
+    height: var(--arc-btn-size);
+    padding: var(--arc-sp-sm);
+  }
+
+  /* --- Toggle group (combat mode MEL / DIS / REC) --- */
+  .arc-btn--toggle {
+    background: var(--arc-surface-1);
+    border-color: var(--arc-border-mid);
+    box-shadow: none;
+    /* double-border effect: gap between outer border and button face */
+    outline: var(--arc-border-w) solid var(--arc-border-mid);
+    outline-offset: 2px;
+    margin: 4px;
+  }
+
+  .arc-btn--toggle:hover:not(:disabled) {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--arc-accent-dim);
+    outline-color: var(--arc-accent-dim);
+  }
+
+  .arc-btn--toggle.is-active,
+  .arc-btn--toggle[aria-pressed='true'] {
+    background: var(--arc-accent);
+    border-color: var(--arc-accent);
+    outline-color: var(--arc-accent);
+    color: var(--arc-text-inverse);
+  }
+
+  /* --- Stepper arrows (mastery + / -) --- */
+  .arc-btn--step-up,
+  .arc-btn--step-down {
+    width: var(--arc-btn-size);
+    height: var(--arc-btn-size);
+    padding: 0;
+    background: var(--arc-surface-1);
+    border-color: var(--arc-border-mid);
+    box-shadow: none;
+    font-size: var(--arc-fs-md);
+  }
+
+  .arc-btn--step-up { color: var(--arc-success); }
+  .arc-btn--step-down { color: var(--arc-danger); }
+
+  /* stepped pixel triangles (mask + currentColor), same format as the
+     .arc-select chevron — font glyphs ▲▼ render antialiased */
+  .arc-btn--step-up::before,
+  .arc-btn--step-down::before {
+    content: '';
+    width: 12px;
+    height: 8px;
+    background: currentColor;
+    -webkit-mask: var(--_arc-tri) center / 12px 8px no-repeat;
+    mask: var(--_arc-tri) center / 12px 8px no-repeat;
+  }
+
+  .arc-btn--step-up::before {
+    --_arc-tri: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' shape-rendering='crispEdges'%3E%3Crect x='5' y='0' width='2' height='2'/%3E%3Crect x='4' y='2' width='4' height='2'/%3E%3Crect x='2' y='4' width='8' height='2'/%3E%3Crect x='0' y='6' width='12' height='2'/%3E%3C/svg%3E");
+  }
+
+  .arc-btn--step-down::before {
+    --_arc-tri: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='12' height='2'/%3E%3Crect x='2' y='2' width='8' height='2'/%3E%3Crect x='4' y='4' width='4' height='2'/%3E%3Crect x='5' y='6' width='2' height='2'/%3E%3C/svg%3E");
+  }
+
+  .arc-btn--step-up:hover:not(:disabled),
+  .arc-btn--step-down:hover:not(:disabled) {
+    transform: none;
+    box-shadow: none;
+    border-color: currentColor;
+    background: var(--arc-surface-3);
+    color: inherit;
+  }
+  .arc-btn--step-up:hover:not(:disabled) { color: var(--arc-success); }
+  .arc-btn--step-down:hover:not(:disabled) { color: var(--arc-danger); }
+}

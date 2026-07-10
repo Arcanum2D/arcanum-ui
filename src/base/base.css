@@ -1,0 +1,56 @@
+/* arcanum-ui — base layer
+   Deliberately minimal: the library never imposes a global reset on the host
+   app. Everything here is scoped to arc-* classes or opt-in containers. */
+
+@layer arc.base {
+  /* Opt-in root for standalone pages (demo, menus). Game clients that already
+     have their own body styles simply don't use it. */
+  .arc-root {
+    background: var(--arc-surface-0);
+    color: var(--arc-text);
+    font-family: var(--arc-font-body);
+    font-size: var(--arc-fs-lg);
+    image-rendering: pixelated;
+  }
+
+  /* Shared focus treatment for every interactive arc component */
+  :is(.arc-btn, .arc-input, .arc-select, .arc-slider, .arc-checkbox, .arc-radio, .arc-tab, .arc-slot):focus-visible {
+    outline: 2px solid var(--arc-accent);
+    outline-offset: 2px;
+  }
+
+  /* Pixel scrollbar — apply .arc-scroll to any scrollable container */
+  .arc-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--arc-border-mid) var(--arc-surface-1);
+  }
+
+  .arc-scroll::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .arc-scroll::-webkit-scrollbar-track {
+    background: var(--arc-surface-1);
+  }
+
+  .arc-scroll::-webkit-scrollbar-thumb {
+    background: var(--arc-border-mid);
+    border: 2px solid var(--arc-surface-1);
+  }
+
+  .arc-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--arc-accent-dim);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [class^='arc-'],
+    [class*=' arc-'],
+    [class^='arc-']::before,
+    [class*=' arc-']::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

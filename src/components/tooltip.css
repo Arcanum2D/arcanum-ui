@@ -1,0 +1,37 @@
+/* arcanum-ui — tooltip container
+   Positioning stays in app code (JS sets left/top); this is only the look. */
+
+@layer arc.components {
+  .arc-tooltip {
+    position: fixed;
+    z-index: var(--arc-z-tooltip);
+    max-width: 320px;
+    background: var(--arc-surface-1);
+    border: var(--arc-border-w) solid var(--arc-border-light);
+    box-shadow: var(--arc-shadow-px);
+    padding: var(--arc-sp-md) var(--arc-sp-lg);
+    font-family: var(--arc-font-body);
+    font-size: var(--arc-fs-md);
+    color: var(--arc-text);
+    pointer-events: none;
+  }
+
+  .arc-tooltip__title {
+    font-size: var(--arc-fs-lg);
+    margin-bottom: var(--arc-sp-sm);
+    letter-spacing: 1px;
+  }
+
+  .arc-tooltip__row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--arc-sp-lg);
+    color: var(--arc-text-dim);
+  }
+
+  .arc-tooltip__flavor {
+    margin-top: var(--arc-sp-sm);
+    color: var(--arc-gold);
+    font-style: italic;
+  }
+}

@@ -1,0 +1,127 @@
+/* arcanum-ui — tabs, dividers, lists, tables */
+
+@layer arc.components {
+  /* --- Tabs --- */
+  .arc-tabs {
+    display: flex;
+    gap: var(--arc-sp-xs);
+    border-bottom: var(--arc-border-w) solid var(--arc-border-mid);
+  }
+
+  .arc-tab {
+    background: transparent;
+    border: var(--arc-border-w) solid transparent;
+    border-bottom: none;
+    color: var(--arc-text-dim);
+    padding: var(--arc-sp-sm) var(--arc-sp-lg);
+    font-family: var(--arc-font-body);
+    font-size: var(--arc-fs-lg);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+  }
+
+  .arc-tab:hover {
+    color: var(--arc-text);
+  }
+
+  .arc-tab.is-active,
+  .arc-tab[aria-selected='true'] {
+    background: var(--arc-surface-2);
+    border-color: var(--arc-border-mid);
+    color: var(--arc-accent);
+    margin-bottom: calc(-1 * var(--arc-border-w));
+  }
+
+  /* --- Divider --- */
+  .arc-divider {
+    border: none;
+    height: var(--arc-border-w);
+    background: var(--arc-border-mid);
+    margin: var(--arc-sp-lg) 0;
+  }
+
+  .arc-divider--gold {
+    background: var(--arc-gold);
+  }
+
+  /* --- List (auction rows, mail, bank log) --- */
+  .arc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .arc-list > li,
+  .arc-list__item {
+    display: flex;
+    align-items: center;
+    gap: var(--arc-sp-md);
+    padding: var(--arc-sp-md);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .arc-list__item:hover,
+  .arc-list--hover > li:hover {
+    background: var(--arc-surface-3);
+  }
+
+  .arc-list__item.is-selected {
+    background: var(--arc-surface-3);
+    box-shadow: inset 3px 0 0 var(--arc-accent);
+  }
+
+  /* --- Table --- */
+  .arc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--arc-font-body);
+    font-size: var(--arc-fs-md);
+  }
+
+  .arc-table th {
+    text-align: left;
+    padding: var(--arc-sp-md);
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--arc-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: var(--arc-fs-sm);
+    font-weight: normal;
+    border-bottom: var(--arc-border-w) solid var(--arc-border-mid);
+  }
+
+  .arc-table td {
+    padding: var(--arc-sp-md);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .arc-table tbody tr:hover {
+    background: var(--arc-surface-3);
+  }
+}
+
+@layer arc.utilities {
+  /* Stepped pixel triangles (mask + currentColor). Attach to any empty
+     element/button; same 12x8 format as the .arc-select chevron. */
+  .arc-tri-up::before,
+  .arc-tri-down::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 8px;
+    background: currentColor;
+    -webkit-mask: var(--_arc-tri) center / contain no-repeat;
+    mask: var(--_arc-tri) center / contain no-repeat;
+  }
+
+  .arc-tri-up::before {
+    --_arc-tri: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' shape-rendering='crispEdges'%3E%3Crect x='5' y='0' width='2' height='2'/%3E%3Crect x='4' y='2' width='4' height='2'/%3E%3Crect x='2' y='4' width='8' height='2'/%3E%3Crect x='0' y='6' width='12' height='2'/%3E%3C/svg%3E");
+  }
+
+  .arc-tri-down::before {
+    --_arc-tri: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='12' height='2'/%3E%3Crect x='2' y='2' width='8' height='2'/%3E%3Crect x='4' y='4' width='4' height='2'/%3E%3Crect x='5' y='6' width='2' height='2'/%3E%3C/svg%3E");
+  }
+}

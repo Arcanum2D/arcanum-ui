@@ -1,0 +1,179 @@
+/* arcanum-ui — item slot (inventory / bank / skillbar / equipment)
+   <div class="arc-slot" data-rarity="4"> <img …> <span class="arc-slot__count">12</span> </div>
+   States: .is-drag-over .is-selected .is-disabled | cooldown via .arc-slot__cooldown */
+
+@layer arc.components {
+  .arc-slot {
+    position: relative;
+    width: var(--arc-slot-size);
+    height: var(--arc-slot-size);
+    background: var(--arc-surface-2);
+    border: var(--arc-border-w) solid var(--arc-border-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .arc-slot img {
+    max-width: 85%;
+    max-height: 85%;
+    image-rendering: pixelated;
+    pointer-events: none;
+  }
+
+  /* Draggable item wrapper (drag listeners go here, not on the slot) */
+  .arc-slot__item {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Icon as background — works with sprite atlases (background-position set
+     by app code) and with standalone images (background-image) alike */
+  .arc-slot__icon {
+    width: 80%;
+    height: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    image-rendering: pixelated;
+    pointer-events: none;
+  }
+
+  .arc-slot:hover {
+    background: var(--arc-surface-3);
+    border-color: var(--arc-border-light);
+  }
+
+  .arc-slot.is-drag-over {
+    border-color: var(--arc-accent);
+    background: var(--arc-surface-3);
+  }
+
+  .arc-slot.is-selected {
+    border-color: var(--arc-accent);
+    box-shadow: 0 0 0 1px var(--arc-accent);
+  }
+
+  .arc-slot.is-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* Rarity border (numeric scale, mirrors game data) */
+  .arc-slot[data-rarity='1'] { border-color: var(--arc-rarity-1); }
+  .arc-slot[data-rarity='2'] { border-color: var(--arc-rarity-2); }
+  .arc-slot[data-rarity='3'] { border-color: var(--arc-rarity-3); }
+  .arc-slot[data-rarity='4'] { border-color: var(--arc-rarity-4); }
+  .arc-slot[data-rarity='5'] { border-color: var(--arc-rarity-5); }
+  .arc-slot[data-rarity='6'] { border-color: var(--arc-rarity-6); }
+  .arc-slot[data-rarity='7'] { border-color: var(--arc-rarity-7); }
+  .arc-slot[data-rarity='8'] { border-color: var(--arc-rarity-8); }
+  .arc-slot[data-rarity='9'] { border-color: var(--arc-rarity-9); }
+  .arc-slot[data-rarity='10'] { border-color: var(--arc-rarity-10); }
+
+  .arc-slot__count {
+    position: absolute;
+    z-index: 1;
+    bottom: 1px;
+    right: 3px;
+    font-family: var(--arc-font-body);
+    font-size: var(--arc-fs-sm);
+    color: var(--arc-text);
+    text-shadow: var(--arc-text-shadow);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .arc-slot__key {
+    position: absolute;
+    z-index: 1;
+    top: 1px;
+    left: 3px;
+    font-size: var(--arc-fs-xs);
+    color: var(--arc-text-dim);
+    text-shadow: var(--arc-text-shadow);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* Resource cost badge (mana on skillbars): small chip so digits never
+     swallow the icon nor clip against the slot edge */
+  .arc-slot__cost {
+    position: absolute;
+    z-index: 1;
+    bottom: 1px;
+    right: 1px;
+    padding: 0 3px;
+    background: rgba(6, 6, 12, 0.75);
+    color: var(--arc-info);
+    font-family: var(--arc-font-body);
+    font-size: var(--arc-fs-xs);
+    line-height: 1.5;
+    pointer-events: none;
+  }
+
+  /* Cooldown sweep: set height via --arc-cooldown (100% → 0%) from JS */
+  .arc-slot__cooldown {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--arc-cooldown, 0%);
+    background: rgba(10, 10, 18, 0.75);
+    pointer-events: none;
+    transition: height 0.1s linear;
+  }
+
+  /* --- Sunken double-bevel variant (hotbar / inner wells): inverted depth,
+     steel ring outside + deep inner shadow. Rarity colors the ring. --- */
+  .arc-slot--bevel {
+    --arc-bevel-ring: #35486e;
+    --arc-bevel-line: #060a14;
+    background: linear-gradient(180deg, #0d1426, #070b16);
+    border: 2px solid var(--arc-bevel-line);
+    box-shadow:
+      0 0 0 2px var(--arc-bevel-ring),
+      inset 0 3px 8px rgba(0, 0, 0, 0.8);
+    /* the ring paints 2px outside the box — container gap must be ≥ 4px */
+  }
+
+  .arc-slot--bevel:hover {
+    --arc-bevel-ring: #4a6396;
+    background: linear-gradient(180deg, #101a30, #0a0f1e);
+    border-color: var(--arc-bevel-line);
+  }
+
+  .arc-slot--bevel.is-drag-over,
+  .arc-slot--bevel.is-selected {
+    --arc-bevel-ring: var(--arc-accent);
+    border-color: var(--arc-bevel-line);
+    box-shadow:
+      0 0 0 2px var(--arc-bevel-ring),
+      inset 0 3px 8px rgba(0, 0, 0, 0.8);
+  }
+
+  .arc-slot--bevel[data-rarity] { border-color: var(--arc-bevel-line); }
+  .arc-slot--bevel[data-rarity='1'] { --arc-bevel-ring: var(--arc-rarity-1); }
+  .arc-slot--bevel[data-rarity='2'] { --arc-bevel-ring: var(--arc-rarity-2); }
+  .arc-slot--bevel[data-rarity='3'] { --arc-bevel-ring: var(--arc-rarity-3); }
+  .arc-slot--bevel[data-rarity='4'] { --arc-bevel-ring: var(--arc-rarity-4); }
+  .arc-slot--bevel[data-rarity='5'] { --arc-bevel-ring: var(--arc-rarity-5); }
+  .arc-slot--bevel[data-rarity='6'] { --arc-bevel-ring: var(--arc-rarity-6); }
+  .arc-slot--bevel[data-rarity='7'] { --arc-bevel-ring: var(--arc-rarity-7); }
+  .arc-slot--bevel[data-rarity='8'] { --arc-bevel-ring: var(--arc-rarity-8); }
+  .arc-slot--bevel[data-rarity='9'] { --arc-bevel-ring: var(--arc-rarity-9); }
+  .arc-slot--bevel[data-rarity='10'] { --arc-bevel-ring: var(--arc-rarity-10); }
+
+  /* Slot grid helper */
+  .arc-slot-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--arc-slot-cols, 5), var(--arc-slot-size));
+    gap: var(--arc-sp-sm);
+  }
+}
