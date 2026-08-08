@@ -45,17 +45,17 @@
     --arc-stat-int: #3498db;
     --arc-stat-vit: #f39c12;
 
-    /* --- Rarity (numeric scale 1-10, mirrors game data) --- */
+    /* --- Rarity (numeric scale 1-10, DB names per loader.go) --- */
     --arc-rarity-1: #aaaaaa;  /* common */
     --arc-rarity-2: #1eff00;  /* uncommon */
     --arc-rarity-3: #0070dd;  /* rare */
-    --arc-rarity-4: #a335ee;  /* epic */
-    --arc-rarity-5: #ff8000;  /* legendary */
-    --arc-rarity-6: #e6cc80;  /* mythical */
-    --arc-rarity-7: #00ccff;  /* unique */
-    --arc-rarity-8: #ff4444;  /* godly */
-    --arc-rarity-9: #ffdd00;  /* divine */
-    --arc-rarity-10: #ff69b4; /* eternal */
+    --arc-rarity-4: #a335ee;  /* very rare */
+    --arc-rarity-5: #ff8000;  /* epic */
+    --arc-rarity-6: #e6cc80;  /* legendary */
+    --arc-rarity-7: #00ccff;  /* mith */
+    --arc-rarity-8: #ff4444;  /* unique */
+    --arc-rarity-9: #ffdd00;  /* devout */
+    --arc-rarity-10: #e8f6ff; /* eternal — blanco cristal */
 
     /* --- Text --- */
     --arc-text: #ffffff;
