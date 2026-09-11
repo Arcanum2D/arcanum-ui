@@ -1,6 +1,6 @@
 {
   "name": "arcanum-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Pixel-art RPG UI component library (CSS-first) — dark navy & cyan theme, zero dependencies",
   "license": "MIT",
   "type": "module",

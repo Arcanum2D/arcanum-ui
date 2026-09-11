@@ -107,6 +107,29 @@ setArcFont('clean');   // VT323
 
 or simply `<html data-arc-font="arcade">`.
 
+## Accessibility — font scale
+
+A second, independent axis lets a player scale up all text without changing
+the font preset (large-print / low-vision support). It multiplies on top of
+the per-font metric correction above (`--arc-font-scale` = metric scale ×
+a11y scale):
+
+```ts
+import { setArcA11yScale, ARC_A11Y_SCALES } from 'arcanum-ui';
+
+setArcA11yScale('normal');  // 100% — default, identical to not setting the attribute
+setArcA11yScale('large');   // 125%
+setArcA11yScale('xlarge');  // 150%
+
+ARC_A11Y_SCALES; // ['normal', 'large', 'xlarge'] — for building a picker
+```
+
+or simply `<html data-arc-a11y-scale="large">`.
+
+This only sets the multiplier; it's the **host app's job** to decide whether
+to cap it further (e.g. clamp to `large` on narrow viewports so the HUD
+doesn't overflow) — the library has no viewport awareness by design.
+
 ## Theming
 
 Override tokens after importing — no component rule ever hardcodes a color:
@@ -126,7 +149,7 @@ Token groups: surfaces, borders, accents, semantic (`success/danger/warning/info
 bun install && bun run dev   # then open /demo/
 ```
 
-The kitchen-sink demo doubles as the visual regression fixture — regenerate the screenshots in `docs/` with `bun run demo:screenshot`. It includes a font switcher to validate the three presets against every component.
+The kitchen-sink demo doubles as the visual regression fixture — regenerate the screenshots in `docs/` with `bun run demo:screenshot`. It includes a font switcher and an a11y scale switcher to validate the three font presets and the three accessibility scales (independently combinable) against every component.
 
 ## License
 
