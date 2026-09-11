@@ -25,6 +25,12 @@
       <option value="arcade">Press Start 2P (arcade)</option>
       <option value="clean">VT323 (clean)</option>
     </select>
+    <label for="a11y-scale-picker" style="color: var(--arc-text-dim)">A11y scale</label>
+    <select id="a11y-scale-picker" class="arc-select">
+      <option value="normal" selected>Normal (100%)</option>
+      <option value="large">Large (125%)</option>
+      <option value="xlarge">X-Large (150%)</option>
+    </select>
   </header>
 
   <main class="demo-main">
@@ -328,10 +334,11 @@
   </div>
 
   <script type="module">
-    import { arcToast, arcModal, arcTabs, arcTooltip, arcContextMenu, setArcFont } from '../src/index.ts';
+    import { arcToast, arcModal, arcTabs, arcTooltip, arcContextMenu, setArcFont, setArcA11yScale } from '../src/index.ts';
     import { PIXEL_ICONS } from './pixel-icons.js';
 
     document.getElementById('font-picker').addEventListener('change', (e) => setArcFont(e.target.value));
+    document.getElementById('a11y-scale-picker').addEventListener('change', (e) => setArcA11yScale(e.target.value));
 
     // apply pixel-art icons to all static data-icon elements
     document.querySelectorAll('[data-icon]').forEach((el) => {

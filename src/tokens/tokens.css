@@ -74,15 +74,30 @@
     /* --- Typography ---
        Player-selectable presets: set data-arc-font="jersey|arcade|clean"
        on <html>. Components must ONLY use --arc-font-body/--arc-font-heading
-       and the --arc-fs-* scale (which absorbs per-font metric differences
-       via --arc-font-scale). */
+       and the --arc-fs-* scale.
+
+       --arc-font-scale combina DOS ejes independientes que un host puede
+       fijar por separado en <html>:
+         1) --arc-font-metric-scale — corrige la diferencia de métrica entre
+            fuentes pixel (una Press Start 2P a 16px no ocupa lo mismo que
+            una Jersey25 a 16px). La fija cada preset data-arc-font.
+         2) --arc-a11y-scale — preferencia de accesibilidad del jugador
+            (agrandar todo el texto), vía data-arc-a11y-scale="normal|
+            large|xlarge". Es independiente de la fuente elegida.
+       El tope máximo de escala en pantallas pequeñas (evitar que un texto
+       xlarge rompa el layout en móvil) es responsabilidad del CLIENTE, no
+       de esta librería: aquí solo definimos el multiplicador; el cliente
+       decide si lo aplica, lo recorta o lo combina con su propio layout
+       responsive antes de escribir el atributo en <html>. */
     --arc-font-jersey: 'Jersey25', monospace;
     --arc-font-arcade: 'Press Start 2P', monospace;
     --arc-font-clean: 'VT323', monospace;
 
     --arc-font-body: var(--arc-font-jersey);
     --arc-font-heading: var(--arc-font-jersey);
-    --arc-font-scale: 1;
+    --arc-font-metric-scale: 1;
+    --arc-a11y-scale: 1;
+    --arc-font-scale: calc(var(--arc-font-metric-scale) * var(--arc-a11y-scale));
 
     /* --- Font size scale (responsive 1366→1920, × font preset scale) --- */
     --arc-fs-2xs: calc(var(--arc-font-scale) * clamp(7px, calc(7px + 1 * (100vw - 1366px) / 554), 8px));
@@ -122,20 +137,34 @@
   [data-arc-font='jersey'] {
     --arc-font-body: var(--arc-font-jersey);
     --arc-font-heading: var(--arc-font-jersey);
-    --arc-font-scale: 1;
+    --arc-font-metric-scale: 1;
   }
 
   /* Press Start 2P renders ~60% wider/taller than Jersey at equal px */
   [data-arc-font='arcade'] {
     --arc-font-body: var(--arc-font-arcade);
     --arc-font-heading: var(--arc-font-arcade);
-    --arc-font-scale: 0.62;
+    --arc-font-metric-scale: 0.62;
   }
 
   /* VT323 has a small x-height; bump it up for legibility */
   [data-arc-font='clean'] {
     --arc-font-body: var(--arc-font-clean);
     --arc-font-heading: var(--arc-font-clean);
-    --arc-font-scale: 1.1;
+    --arc-font-metric-scale: 1.1;
+  }
+
+  /* --- Accessibility scale (independent of the font preset) ---
+     set data-arc-a11y-scale="normal|large|xlarge" on <html>. */
+  [data-arc-a11y-scale='normal'] {
+    --arc-a11y-scale: 1;
+  }
+
+  [data-arc-a11y-scale='large'] {
+    --arc-a11y-scale: 1.25;
+  }
+
+  [data-arc-a11y-scale='xlarge'] {
+    --arc-a11y-scale: 1.5;
   }
 }

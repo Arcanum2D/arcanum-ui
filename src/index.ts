@@ -15,3 +15,17 @@ export type ArcFontPreset = 'jersey' | 'arcade' | 'clean';
 export function setArcFont(preset: ArcFontPreset): void {
   document.documentElement.setAttribute('data-arc-font', preset);
 }
+
+export type ArcA11yScale = 'normal' | 'large' | 'xlarge';
+
+export const ARC_A11Y_SCALES: readonly ArcA11yScale[] = ['normal', 'large', 'xlarge'];
+
+/**
+ * Apply a player-selected accessibility font scale (persist the choice
+ * yourself). Independent of setArcFont — this multiplies --arc-font-scale
+ * on top of the per-font metric correction, it does not replace it.
+ * Passing 'normal' (or omitting the call) leaves --arc-fs-* unchanged.
+ */
+export function setArcA11yScale(scale: ArcA11yScale): void {
+  document.documentElement.setAttribute('data-arc-a11y-scale', scale);
+}
